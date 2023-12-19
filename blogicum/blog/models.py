@@ -22,7 +22,7 @@ class Category(BaseModel):
     description = models.TextField(verbose_name='Описание')
     slug = models.SlugField('Идентификатор',
                             unique=True,
-                            help_text=f'Идентификатор страницы для URL; '
+                            help_text='Идентификатор страницы для URL; '
                             'разрешены символы латиницы, '
                             'цифры, дефис и подчёркивание.'
                             )
@@ -49,7 +49,7 @@ class Location(BaseModel):
 class Post(BaseModel):
     text = models.TextField(verbose_name='Текст')
     pub_date = models.DateTimeField('Дата и время публикации',
-                                    help_text=f'Если установить дату и время '
+                                    help_text='Если установить дату и время '
                                     'в будущем — можно делать '
                                     'отложенные публикации.')
 
