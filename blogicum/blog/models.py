@@ -5,25 +5,26 @@ User = get_user_model()
 
 
 class BaseModel(models.Model):
-    title = models.CharField('Заголовок', max_length=256)
+    title = models.CharField('Заголовок',
+                             max_length=256,
+                             default='Заголовок')
     is_published = models.BooleanField(
         'Опубликовано',
         default=True,
-        help_text='Снимите галочку, чтобы скрыть публикацию.'
-        )
-    created_at = models.DateTimeField('Добавлено')
+        help_text='Снимите галочку, чтобы скрыть публикацию.')
+    created_at = models.DateTimeField('Добавлено', auto_now_add=True)
 
     class Meta:
         abstract = True
 
 
 class Category(BaseModel):
-    description = models.TextField('Описание')
+    description = models.TextField(verbose_name='Описание')
     slug = models.SlugField('Идентификатор',
                             unique=True,
-                            help_text='''Идентификатор страницы для URL; 
-                            разрешены символы латиницы, цифры, 
-                            дефис и подчёркивание.'''
+                            help_text=f'Идентификатор страницы для URL; '
+                            'разрешены символы латиницы, '
+                            'цифры, дефис и подчёркивание.'
                             )
 
     class Meta:
@@ -46,12 +47,11 @@ class Location(BaseModel):
 
 
 class Post(BaseModel):
-    text = models.TextField('Текст')
+    text = models.TextField(verbose_name='Текст')
     pub_date = models.DateTimeField('Дата и время публикации',
-                                    help_text='''Если установить дату и 
-                                    время в будущем — можно делать 
-                                    отложенные публикации.'''
-                                    )
+                                    help_text=f'Если установить дату и время '
+                                    'в будущем — можно делать '
+                                    'отложенные публикации.')
 
     class Meta:
         verbose_name = 'публикация'
@@ -62,16 +62,21 @@ class Post(BaseModel):
 
     author = models.ForeignKey(
         User,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='posts',
+        verbose_name='Автор публикации'
     )
     location = models.ForeignKey(
         Location,
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        verbose_name='Местоположение'
     )
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name='posts',
+        verbose_name='Категория'
     )
