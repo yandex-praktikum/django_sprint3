@@ -13,7 +13,7 @@ def main():
     
     # Добавляем путь к текущей директории и путь к директории проекта Django в sys.path
     sys.path.append(BASE_DIR)
-    sys.path.append(os.path.join(BASE_DIR, 'DJANGO_SPRINT_3'))
+    sys.path.append(os.path.join(BASE_DIR, 'blogicum'))
 
     try:
         from django.core.management import execute_from_command_line
