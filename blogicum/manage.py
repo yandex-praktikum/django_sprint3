@@ -7,6 +7,14 @@ import sys
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blogicum.settings')
+    
+    # Получаем путь к текущей директории проекта Django
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
+    # Добавляем путь к текущей директории и путь к директории проекта Django в sys.path
+    sys.path.append(BASE_DIR)
+    sys.path.append(os.path.join(BASE_DIR, 'blogicum'))
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
