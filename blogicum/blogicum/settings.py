@@ -135,4 +135,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 POSTS_BY_PAGE = 5
 MAX_POST_LENGTH = 256
-
